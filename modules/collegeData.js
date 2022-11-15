@@ -69,6 +69,21 @@ module.exports.getCourses = function () {
   });
 };
 
+module.exports.getCourseById = function (id) {
+  return new Promise((resolve, reject) => {
+    let courseById;
+    courseById = dataCollection.courses.find((item) => {
+      return item.courseId == id;
+    });
+    // console.log(courseById);
+    if (courseById != undefined) {
+      resolve(courseById);
+    } else {
+      reject("query returned 0 results");
+    }
+  });
+};
+
 module.exports.getStudentsByCourse = (course) => {
   return new Promise((resolve, reject) => {
     let studentsByCourse;
@@ -86,13 +101,29 @@ module.exports.getStudentsByCourse = (course) => {
 module.exports.getStudentByNum = (num) => {
   return new Promise((resolve, reject) => {
     let studentByNum;
-    studentByNum = dataCollection.students.filter(
-      (item) => item.studentNum == num
-    );
-    if (studentByNum.length > 0) {
+    studentByNum = dataCollection.students.find((item) => {
+      return item.studentNum == num;
+    });
+    if (studentByNum != undefined) {
       resolve(studentByNum);
     } else {
       reject("no results returned");
     }
+  });
+};
+module.exports.updateStudent = (studentData) => {
+  return new Promise((resolve, reject) => {
+    // let theStudent = dataCollection.students.find((item) => {
+    //   return item.studentNum == studentData.studentNum;
+    // });
+    dataCollection.students = dataCollection.students.filter((item) => {
+      return item.studentNum != studentData.studentNum;
+    });
+
+    dataCollection.students.push(studentData);
+
+    console.log(studentData);
+    // theStudent.indexOf();
+    resolve();
   });
 };

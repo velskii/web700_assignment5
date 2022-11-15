@@ -9,7 +9,7 @@ html {
   width: 100%;
   height: 100%;
   overflow: auto;
-  background: url(/imgs/mountain.jpg);
+  /* background: url(/imgs/mountain.jpg); */
   background-repeat: no-repeat;
   background-size: 100% 100%;
 }

@@ -28,9 +28,6 @@ app.engine(
     helpers: {
       navLink: function (url, options) {
         return (
-          // <li class="nav-item">
-          //   <a class="nav-link" href="/about">About</a>
-          // </li>
           "<li" +
           (url == app.locals.activeRoute
             ? ' class="nav-item active"'
@@ -95,10 +92,14 @@ app.get("/students", function (req, res) {
   } else {
     db.getAllStudents()
       .then((data) => {
-        res.send(data);
+        res.render("students", {
+          students: data,
+        });
       })
       .catch((err) => {
-        res.json({ message: "no results" });
+        res.render("students", {
+          message: "no results",
+        });
       });
   }
 });
@@ -119,20 +120,49 @@ app.post("/students/add", (req, res) => {
 app.get("/courses", (req, res) => {
   db.getCourses()
     .then((data) => {
-      res.send(data);
+      res.render("courses", {
+        courses: data,
+      });
     })
     .catch((err) => {
-      res.json({ message: "no results" });
+      res.render({ message: "no results" });
+    });
+});
+
+app.get("/course/:id", (req, res) => {
+  db.getCourseById(req.params.id)
+    .then((data) => {
+      res.render("course", {
+        course: data,
+      });
+    })
+    .catch((err) => {
+      res.render("course", { message: err });
     });
 });
 
 app.get("/student/:num", (req, res) => {
   db.getStudentByNum(req.params.num)
     .then((data) => {
-      res.send(data);
+      res.render("student", {
+        student: data,
+      });
     })
     .catch((err) => {
-      res.json({ message: "no results" });
+      res.render("student", { message: "no results" });
+    });
+});
+
+app.post("/student/update", (req, res) => {
+  req.body.TA = req.body.TA ? true : false;
+  console.log(req.body);
+
+  db.updateStudent(req.body)
+    .then((data) => {
+      res.redirect("/students");
+    })
+    .catch((err) => {
+      res.json({ message: "update student failed" });
     });
 });
 
