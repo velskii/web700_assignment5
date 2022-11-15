@@ -2,8 +2,8 @@
 
 body,
 html {
-  background: #6b8c94; /* fallback color */
-  background: linear-gradient(to bottom, #6b8c94, #768986);
+  background: #c0d6db; /* fallback color */
+  background: linear-gradient(to bottom, #c8dadf, #ccf9f3);
   background-repeat: no-repeat;
   background-size: cover;
   width: 100%;
