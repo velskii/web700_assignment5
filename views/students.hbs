@@ -34,7 +34,9 @@
     </div>
 
   </div>
-  <div class="col-md-12 text-center">
-    <strong>{{message}}</strong>
-  </div>
+  {{#unless students}}
+    <div class="col-md-12 text-center">
+      <strong>{{message}}</strong>
+    </div>
+  {{/unless}}
 </div>

@@ -15,6 +15,9 @@ let studentsData = [];
 let coursesData = [];
 module.exports.initialize = function () {
   return new Promise((resolve, reject) => {
+    // if (dataCollection != null) {
+    //   return resolve(dataCollection);
+    // }
     fs.readFile("./data/students.json", "utf8", function (err, data) {
       if (err) {
         reject("unable to read students.json");
@@ -113,17 +116,10 @@ module.exports.getStudentByNum = (num) => {
 };
 module.exports.updateStudent = (studentData) => {
   return new Promise((resolve, reject) => {
-    // let theStudent = dataCollection.students.find((item) => {
-    //   return item.studentNum == studentData.studentNum;
-    // });
-    dataCollection.students = dataCollection.students.filter((item) => {
-      return item.studentNum != studentData.studentNum;
+    let index = dataCollection.students.findIndex((item) => {
+      return item.studentNum == studentData.studentNum;
     });
-
-    dataCollection.students.push(studentData);
-
-    console.log(studentData);
-    // theStudent.indexOf();
+    dataCollection.students[index] = studentData;
     resolve();
   });
 };

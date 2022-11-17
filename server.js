@@ -84,10 +84,14 @@ app.get("/students", function (req, res) {
   if (req.query.course != undefined) {
     db.getStudentsByCourse(req.query.course)
       .then((studnetsByCourse) => {
-        res.send(studnetsByCourse);
+        res.render("students", {
+          students: studnetsByCourse,
+        });
       })
       .catch((err) => {
-        res.json({ message: "no results" });
+        res.render("students", {
+          message: "no results",
+        });
       });
   } else {
     db.getAllStudents()
@@ -155,7 +159,7 @@ app.get("/student/:num", (req, res) => {
 
 app.post("/student/update", (req, res) => {
   req.body.TA = req.body.TA ? true : false;
-  console.log(req.body);
+  // console.log(req.body);
 
   db.updateStudent(req.body)
     .then((data) => {
